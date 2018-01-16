@@ -49,10 +49,10 @@ public class TransformerImpl implements Transformer {
             List<Person> list = new ArrayList();
             Workbook excelDocument = new XSSFWorkbook(path);
             Sheet sheet=excelDocument.getSheetAt(0);
-            boolean isHeader = true;
+            boolean header = true;
             for(Row row: sheet){
-                if(isHeader){
-                    isHeader=false;
+                if(header){
+                    header=false;
                     continue;
                 }
                 Cell nameCell=row.getCell(0);
