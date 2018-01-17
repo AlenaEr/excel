@@ -6,10 +6,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,12 +45,15 @@ public class EmployeeImpl implements EmployeeTransform {
     public List<Employee> fromExcel(String path) {
         try {
             List<Employee> employees = new ArrayList();
-            Workbook excelBook = new XSSFWorkbook();
+            InputStream in = new FileInputStream(new File("D:\\excel\\employee.xls"));
+            Workbook excelBook = new XSSFWorkbook(in);
+
             Sheet sheet = excelBook.getSheet("Employee Sheet");
-            boolean isHeader = true;
+
+            boolean header = true;
             for (Row row : sheet) {
-                if (isHeader) {
-                    isHeader = false;
+                if (header) {
+                    header = false;
                     continue;
                 }
                 Cell empName = row.getCell(0);
